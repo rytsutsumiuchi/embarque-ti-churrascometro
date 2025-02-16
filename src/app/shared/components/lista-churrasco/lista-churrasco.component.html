@@ -1,0 +1,35 @@
+<!-- Tabela de churrasco -->
+<div class="table-container">
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <!-- Coluna de ID -->
+        <th>Nome</th>
+        <!-- Coluna de Nome -->
+        <th>Quantidade de Adultos</th>
+        <!-- Coluna de Quantidade de Adultos -->
+        <th>Quantidade de Crianças</th>
+        <!-- Coluna de Quantidade de Crianças -->
+        <th>Preço Total</th>
+        <!-- Coluna de Preço Total -->
+      </tr>
+    </thead>
+    <tbody>
+      @for (churrasco of churrascos; track $index) {
+      <tr>
+        <td>{{ churrasco.id }}</td>
+        <!-- Coluna de ID -->
+        <td>{{ churrasco.nome | titlecase }}</td>
+        <!-- Coluna de Nome -->
+        <td>{{ churrasco.quantidade_adultos }}</td>
+        <!-- Coluna de Quantidade de Adultos -->
+        <td>{{ churrasco.quantidade_criancas }}</td>
+        <!-- Coluna de Quantidade de Crianças -->
+        <td>{{ calculaValorTotal(churrasco) | currency: 'BRL'  }}</td>
+        <!-- Coluna de Preço Total -->
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>

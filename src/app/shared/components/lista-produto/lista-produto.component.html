@@ -1,0 +1,35 @@
+<!-- Tabela de produtos -->
+<div class="table-container">
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th> <!-- Coluna de ID -->
+                <th>Nome</th> <!-- Coluna de Nome -->
+                <th>Tipo</th> <!-- Coluna de Tipo -->
+                <th>Preço</th> <!-- Coluna de Preço -->
+                <th>Consumo Médio Adulto</th> <!-- Coluna de Consumo Médio Adulto -->
+                <th>Consumo Médio Crianca</th> <!-- Coluna de Consumo Médio Crianca -->
+                <th>Editar?</th> <!-- Coluna de Ação -->
+            </tr>
+        </thead>
+        <tbody>
+            @for (produto of produtos; track $index) {
+                <tr>
+                    <td>{{ produto.id }}</td> <!-- Coluna de ID -->
+                    <td>{{ produto.nome | titlecase }}</td> <!-- Coluna de Nome -->
+                    <td>{{ produto.tipo | titlecase }}</td> <!-- Coluna de Tipo -->
+                    @if (tipo === 'carnes') {
+                        <td> {{ produto.preco_kg | currency: 'BRL' }}</td> <!-- Coluna de Preço -->
+                        <td> {{ produto.consumo_medio_adulto_g }}g</td> <!-- Coluna de Consumo Médio Adulto -->
+                        <td> {{ produto.consumo_medio_crianca_g }}g</td> <!-- Coluna de Consumo Médio Crianca -->
+                    } @else if (tipo === 'bebidas') {
+                        <td> {{ produto.preco_unidade | currency: 'BRL' }}</td> <!-- Coluna de Preço -->
+                        <td> {{ produto.consumo_medio_adulto_ml }}ml</td> <!-- Coluna de Consumo Médio Adulto -->
+                        <td> {{ produto.consumo_medio_crianca_ml }}ml</td> <!-- Coluna de Consumo Médio Crianca -->
+                    }
+                    <td><button mat-raised-button color="accent" (click)="goToEditarProduto(tipo, produto.id)">Editar</button></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
