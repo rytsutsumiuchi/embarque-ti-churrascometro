@@ -1,7 +1,7 @@
 @if (parameterTipo === 'carnes') {
-    <app-form-cadastra-carne [id]="parameterID" />
+    <app-form-cadastra-carne [id]="parameterID" [endpoint]="parameterTipo" />
 } @else if (parameterTipo === 'bebidas') {
-    <app-form-cadastra-bebida [id]="parameterID" />
+    <app-form-cadastra-bebida [id]="parameterID" [endpoint]="parameterTipo" />
 } @else {
     <p>URL ERRADA</p>
 }

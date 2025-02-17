@@ -6,7 +6,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { Carne } from '../../models/carne.interface';
-import { CarnesService } from '../../services/carnes.service';
+import { ProdutosService } from '../../services/produtos.service';
 import { tap } from 'rxjs';
 import { PrecoMinimoDirective } from '../../validators/preco-minimo.directive';
 import { Router } from '@angular/router';
@@ -28,12 +28,13 @@ import { Router } from '@angular/router';
 })
 export class FormCadastraCarneComponent {
   @Input() id!: string;
+  @Input()  endpoint!: string;
   carne: any = {};
 
   tipos: string[] = ['bovina', 'suína', 'ave'];
 
   constructor(
-    private carnesService: CarnesService,
+    private produtosService: ProdutosService,
     private router: Router
   ) {}
 
@@ -58,8 +59,8 @@ export class FormCadastraCarneComponent {
   }
 
   cadastrarCarne(carne: Carne) {
-    this.carnesService
-      .cadastrarCarne(carne)
+    this.produtosService
+      .cadastrarProduto(this.endpoint, carne)
       .pipe(
         tap((carneCriada: any) => {
           console.log('Carne criada', carneCriada);
@@ -70,7 +71,7 @@ export class FormCadastraCarneComponent {
   }
 
   editarCarne(id: string, carne: Carne): void {
-    this.carnesService.alterarCarne(id, carne).pipe(
+    this.produtosService.alterarProduto(this.endpoint, id, carne).pipe(
       tap(() => {
         this.router.navigate(['produtos']);
       })
@@ -78,7 +79,7 @@ export class FormCadastraCarneComponent {
   }
 
   carregaCarne(id: string) {
-    this.carnesService.pegarCarne(id).pipe(
+    this.produtosService.pegarProduto(this.endpoint, id).pipe(
       tap((carne: Carne) => {
         this.carne = carne; // Carregando a carne para o formulário
       })

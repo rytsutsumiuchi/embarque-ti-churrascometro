@@ -9,13 +9,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { BebidasService } from '../../services/bebidas.service';
+import { ProdutosService } from '../../services/produtos.service';
 import { inject } from '@angular/core';
 
-class BebidasServiceMock {
-  cadastrarBebida = jasmine.createSpy('cadastrarBebida').and.returnValue({});
-  alterarBebida = jasmine.createSpy('altrerarBebida').and.returnValue({});
-  pegarBebida = jasmine.createSpy('pegarBebida').and.returnValue({
+class ProdutosServiceMock {
+  cadastrarProduto = jasmine.createSpy('cadastrarProduto').and.returnValue({});
+  alterarProduto = jasmine.createSpy('altrerarProduto').and.returnValue({});
+  pegarProduto = jasmine.createSpy('pegarProduto').and.returnValue({
     id: "1",
     nome: "cerveja",
     tipo: "alcoólica",
@@ -29,7 +29,7 @@ class BebidasServiceMock {
 describe('FormCadastraBebidaComponent', () => {
   let component: FormCadastraBebidaComponent;
   let fixture: ComponentFixture<FormCadastraBebidaComponent>;
-  let bebidasService: BebidasServiceMock;
+  let brodutosService: ProdutosServiceMock;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -46,13 +46,13 @@ describe('FormCadastraBebidaComponent', () => {
       ],
       providers: [
         FormBuilder,
-        { provide: BebidasService, useClass: BebidasServiceMock }
+        { provide: ProdutosService, useClass: ProdutosServiceMock }
       ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(FormCadastraBebidaComponent);
     component = fixture.componentInstance;
-    bebidasService = TestBed.inject(BebidasService) as any;
+    brodutosService = TestBed.inject(ProdutosService) as any;
     fixture.detectChanges();
   });
 

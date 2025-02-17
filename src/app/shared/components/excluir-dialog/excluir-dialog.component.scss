@@ -1,0 +1,32 @@
+
+.mat-dialog-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.mat-dialog-content {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 16px;
+}
+
+.mat-dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.mat-button {
+    margin-left: 8px;
+}
+
+.mat-button:first-child {
+    background-color: #e0e0e0;
+    color: #333;
+}
+
+.mat-button:last-child {
+    background-color: #d32f2f;
+    color: #fff;
+}

@@ -10,6 +10,7 @@
                 <th>Consumo Médio Adulto</th> <!-- Coluna de Consumo Médio Adulto -->
                 <th>Consumo Médio Crianca</th> <!-- Coluna de Consumo Médio Crianca -->
                 <th>Editar?</th> <!-- Coluna de Ação -->
+                <th>Excluir?</th> <!-- Coluna de Ação -->
             </tr>
         </thead>
         <tbody>
@@ -27,7 +28,8 @@
                         <td> {{ produto.consumo_medio_adulto_ml }}ml</td> <!-- Coluna de Consumo Médio Adulto -->
                         <td> {{ produto.consumo_medio_crianca_ml }}ml</td> <!-- Coluna de Consumo Médio Crianca -->
                     }
-                    <td><button mat-raised-button color="accent" (click)="goToEditarProduto(tipo, produto.id)">Editar</button></td>
+                    <td><button mat-stroked-button (click)="goToEditarProduto(tipo, produto.id)">Editar</button></td>
+                    <td><button mat-stroked-button color="warn" (click)="openExcluirDialog(tipo, produto.id)">Excluir</button></td>
                 </tr>
             }
         </tbody>

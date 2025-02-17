@@ -14,13 +14,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { CarnesService } from '../../services/carnes.service';
-import { BebidasService } from '../../services/bebidas.service';
 import { Bebida } from '../../models/bebida.interface';
 import { tap } from 'rxjs';
 import { Carne } from '../../models/carne.interface';
 import { Churrasco } from '../../models/churrasco.interface';
 import { ChurrascoService } from '../../services/churrasco.service';
+import { ProdutosService } from '../../services/produtos.service';
 
 
 @Component({
@@ -46,13 +45,13 @@ export class FormCadastraChurrascoComponent {
   // 1 - Nome e Pessoas
   // 2 - Carne
   // 3 - Bebida
-
+  
   pessoasForm!: FormGroup;
   carnesForm!: FormGroup;
   bebidasForm!: FormGroup;
 
-  carnesLista: Carne[] = [];
-  bebidasLista: Bebida[] = [];
+  carnesLista: any[] = [];
+  bebidasLista: any[] = [];
 
   carnesSelecionadas!: string[];
   bebidasSelecionadas!: string[];
@@ -74,8 +73,7 @@ export class FormCadastraChurrascoComponent {
 
   constructor(
     private formBuilder: FormBuilder,
-    private carnesService: CarnesService,
-    private bebidasService: BebidasService,
+    private produtosService: ProdutosService,
     private churrascoService: ChurrascoService
   ) {
     // Construir meus formulários, ou seja agrupar os controles em um grupo
@@ -94,10 +92,12 @@ export class FormCadastraChurrascoComponent {
     this.carregaBebidasNoFormulario();
   }
 
+  //Generalizar os métodos de carregar geravam algum problema
+  //provavelmente de assincronia, por isso estão separados
   private carregaCarnesNoFormulario(): void {
-    this.carnesService.listarCarnes().pipe(
-      tap((carnes: Carne[]) => {
-        this.carnesLista = carnes; // Armazenei lista na variável
+    this.produtosService.listarProdutos('carnes').pipe(
+      tap((produtos: Carne[] | Bebida[]) => {
+        this.carnesLista = produtos; // Armazenei lista na variável
         this.carnesLista.forEach((carne: Carne) => {
           // Criando campos novos com os nomes das carnes registradas
           this.addCampoFormulario(this.carnesForm, carne.nome);
@@ -106,9 +106,9 @@ export class FormCadastraChurrascoComponent {
   }
 
   private carregaBebidasNoFormulario(): void {
-    this.bebidasService.listarBebidas().pipe(
-      tap((bebidas: Bebida[]) => {
-        this.bebidasLista = bebidas; // Armazenei lista na variável
+    this.produtosService.listarProdutos('bebidas').pipe(
+      tap((produtos: Carne[] | Bebida[]) => {
+        this.bebidasLista = produtos; // Armazenei lista na variável
         this.bebidasLista.forEach((bebida: Bebida) => {
           // Criando campos novos com os nomes das bebidas registradas
           this.addCampoFormulario(this.bebidasForm, bebida.nome);

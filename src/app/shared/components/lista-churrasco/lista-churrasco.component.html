@@ -13,6 +13,8 @@
         <!-- Coluna de Quantidade de Crianças -->
         <th>Preço Total</th>
         <!-- Coluna de Preço Total -->
+        <th>Excluir</th>
+        <!-- Coluna excluir lista -->
       </tr>
     </thead>
     <tbody>
@@ -28,6 +30,8 @@
         <!-- Coluna de Quantidade de Crianças -->
         <td>{{ calculaValorTotal(churrasco) | currency: 'BRL'  }}</td>
         <!-- Coluna de Preço Total -->
+        <td><button mat-stroked-button color="warn" (click)="openExcluirDialog(churrasco.id!)">Excluir</button></td>
+        <!-- Coluna excluir lista -->
       </tr>
       }
     </tbody>

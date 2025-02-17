@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CardCarneComponent } from './card-carne.component';
+import { ExcluirDialogComponent } from './excluir-dialog.component';
 
-describe('CardCarneComponent', () => {
-  let component: CardCarneComponent;
-  let fixture: ComponentFixture<CardCarneComponent>;
+describe('ExcluirDialogComponent', () => {
+  let component: ExcluirDialogComponent;
+  let fixture: ComponentFixture<ExcluirDialogComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CardCarneComponent]
+      imports: [ExcluirDialogComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(CardCarneComponent);
+    fixture = TestBed.createComponent(ExcluirDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

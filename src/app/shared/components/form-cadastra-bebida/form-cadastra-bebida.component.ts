@@ -5,7 +5,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
-import { BebidasService } from '../../services/bebidas.service';
+import { ProdutosService } from '../../services/produtos.service';
 import { Bebida } from '../../models/bebida.interface';
 import { tap } from 'rxjs';
 import { precoMinimoValidator } from '../../validators/preco-minimo.validator';
@@ -21,12 +21,13 @@ import { Router } from '@angular/router';
     MatInputModule,
     MatSelectModule,
     MatButtonModule,
-   ],
+  ],
   templateUrl: './form-cadastra-bebida.component.html',
   styleUrl: './form-cadastra-bebida.component.scss'
 })
 export class FormCadastraBebidaComponent {
   @Input() id!: string;
+  @Input() endpoint!: string;
 
   bebidaForm!: FormGroup; // Formulário de cadastro de bebida do tipo FormGroup
 
@@ -38,7 +39,7 @@ export class FormCadastraBebidaComponent {
   // Injeção de dependência do FormBuilder
   constructor(
     private builder: FormBuilder, 
-    private bebidaService: BebidasService,
+    private produtosService: ProdutosService,
     private router: Router
   ) {}
 
@@ -73,16 +74,17 @@ export class FormCadastraBebidaComponent {
   }
 
   cadastrarBebida(bebida: Bebida): void {
-    this.bebidaService.cadastrarBebida(bebida).pipe(
+    this.produtosService.cadastrarProduto(this.endpoint, bebida).pipe(
       tap((bebidaCriada: Bebida) => {
         console.log('Bebida criada com sucesso', bebidaCriada);
         this.bebidaForm.reset(); // Limpa o formulário
+        this.router.navigate(['produtos']);
       })
     ).subscribe();
   }
 
   editarBebida(id: string, bebida: Bebida): void {
-    this.bebidaService.alterarBebida(id, bebida).pipe(
+    this.produtosService.alterarProduto(this.endpoint, id, bebida).pipe(
       tap(() => {
         this.router.navigate(['produtos']);
       })
@@ -90,7 +92,7 @@ export class FormCadastraBebidaComponent {
   }
 
   carregaBebida(id: string) {
-    this.bebidaService.pegarBebida(id).pipe(
+    this.produtosService.pegarProduto(this.endpoint, id).pipe(
       tap((bebida: Bebida) => {
         // this.bebidaForm.controls['nome'].setValue(bebida.nome);
         // delete bebida.id;

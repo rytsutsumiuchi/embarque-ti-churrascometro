@@ -5,12 +5,16 @@ import { tap } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { Bebida } from '../../models/bebida.interface';
 import { Carne } from '../../models/carne.interface';
+import { MatDialog } from '@angular/material/dialog';
+import { ExcluirDialogComponent } from '../excluir-dialog/excluir-dialog.component';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-lista-churrasco',
   standalone: true,
   imports: [
-    CommonModule
+    CommonModule,
+    MatButtonModule
   ],
   templateUrl: './lista-churrasco.component.html',
   styleUrl: './lista-churrasco.component.scss'
@@ -19,7 +23,7 @@ export class ListaChurrascoComponent {
 
   churrascos!: Churrasco[];
 
-  constructor(private churrascoService: ChurrascoService) { }
+  constructor(private churrascoService: ChurrascoService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.carregaChurrascos();
@@ -73,5 +77,27 @@ export class ListaChurrascoComponent {
       const consumo = quantAdultos * consumoAdulto + quantCriancas * consumoCrianca;
       return (consumo / 1000) * precoProduto;
     }
+
+    openExcluirDialog(id: string): void {
+        const dialogRef = this.dialog.open(ExcluirDialogComponent);
+    
+        dialogRef.afterClosed().subscribe(result => {
+          if (result) {
+            this.excluirChurrasco(id);
+            console.log('deletado');
+          } else {
+            console.log('cancelado');
+          }
+        });
+      }
+    
+      excluirChurrasco(id: string): void {
+          this.churrascoService.excluirChurrasco(id).pipe(
+            tap((churrasco: Churrasco) => {
+              console.log("Churrasco excluído - ", churrasco)
+              this.carregaChurrascos();
+            })
+          ).subscribe();
+      }
 
 }
